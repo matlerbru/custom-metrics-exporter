@@ -1,0 +1,4 @@
+PyYAML
+pydantic
+prometheus-client
+paramiko

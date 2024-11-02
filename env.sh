@@ -1,0 +1,2 @@
+export SYNOLOGY_USERNAME=mlb
+export SYNOLOGY_PASSWORD=flVZfsefI3uhuhjyUNUzXPYr4yXaFSS8hswpOfMR

@@ -1,0 +1,4 @@
+types-PyYAML
+black
+mypy
+isort

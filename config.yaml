@@ -1,0 +1,8 @@
+
+directory_usage:
+- host: synology
+#  username: default to <host>_USERNAME environment variable
+#  password: default to <host>_PASSWORD environment variable
+  path: /volume3/k8sCluster
+- host: synology
+  path: /volume3/k8sCluster-backup

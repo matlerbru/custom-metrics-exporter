@@ -1,0 +1,39 @@
+name: Build docker image
+run-name: Build custom-metrics-exporter docker image
+on: [push]
+
+jobs:
+  Build-docker-images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Build docker images
+        run: |
+          docker build -t custom-metrics-exporter --target test ${{ github.workspace }} --no-cache 
+      - name: Black syntax test
+        run: docker run custom-metrics-exporter python3 -m black . --check
+      - name: Mypy type test
+        run: docker run custom-metrics-exporter python3 -m mypy .
+      - name: isort dependecy order test
+        run: docker run custom-metrics-exporter python3 -m isort . --check
+
+  Release-image:
+    runs-on: ubuntu-latest
+    needs: ["Build-docker-images"]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: 'Login to GitHub Container Registry'
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{github.actor}}
+          password: ${{secrets.TOKEN}}
+
+      - name: 'Build Inventory Image'
+        run: |
+          docker build -t ghcr.io/${{github.actor}}/custom-metrics-exporter:latest --target base ${{ github.workspace }}
+          docker push ghcr.io/${{github.actor}}/custom-metrics-exporter:latest
