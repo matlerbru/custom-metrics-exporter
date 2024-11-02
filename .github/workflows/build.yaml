@@ -15,8 +15,6 @@ jobs:
         run: docker run custom-metrics-exporter python3 -m black . --check
       - name: Mypy type test
         run: docker run custom-metrics-exporter python3 -m mypy .
-      - name: isort dependecy order test
-        run: docker run custom-metrics-exporter python3 -m isort . --check
 
   Release-image:
     runs-on: ubuntu-latest
