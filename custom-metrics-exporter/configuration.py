@@ -45,4 +45,4 @@ def config_loader(paths: list[str]) -> Config:
         raise Exception("Not able to load configfile.")
 
 
-config = config_loader(["config.yaml", "/modbus-to-mqtt/config.yaml"])
+config = config_loader(["config.yaml", "/custom-metrics-exporter/config.yaml"])
